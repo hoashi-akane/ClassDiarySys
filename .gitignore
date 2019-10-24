@@ -1,0 +1,14 @@
+# 除外するファイル
+
+.settings/
+
+.build/
+
+*.classpath
+
+*.project
+
+.META-INF/
+
+**/cache/*
+!.gitkeep
