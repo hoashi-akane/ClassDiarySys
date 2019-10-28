@@ -2,13 +2,13 @@
 
 .settings/
 
-.build/
+build/
 
 *.classpath
 
 *.project
 
-.Web-Content/META-INF/
+Web-Content/META-INF/
 
 **/cache/*
 !.gitkeep
