@@ -8,7 +8,7 @@
 
 *.project
 
-.META-INF/
+.Web-Content/META-INF/
 
 **/cache/*
 !.gitkeep
