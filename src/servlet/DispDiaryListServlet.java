@@ -37,10 +37,10 @@ public class DispDiaryListServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 
 		//userIdから一覧を呼び出す
-		String class_code = ((LoginInfoBeans)session.getAttribute("loginInfo")).getClassCode();
+		String classCode = ((LoginInfoBeans)session.getAttribute("loginInfo")).getClassCode();
 		DiaryDao diaryDao = new DiaryDao();
-		List<DiaryListBeans> diaryList = diaryDao.getDiaryList(class_code);
-		session.setAttribute("daiaryList",diaryList);
+		List<DiaryListBeans> diaryList = diaryDao.getDiaryList(classCode);
+		session.setAttribute("diaryList",diaryList);
 		request.getRequestDispatcher("WEB-INF/jsp/dispDiaryList.jsp").forward(request, response);
 	}
 

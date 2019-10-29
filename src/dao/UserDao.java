@@ -13,7 +13,7 @@ public class UserDao extends DaoBase{
 		LoginInfoBeans loginInfo = new LoginInfoBeans();
 		try {
 			super.connect();
-			stmt = this.con.prepareStatement("SELECT * FROM students WHERE student_id = ? AND student_password = ?;");
+			stmt = this.con.prepareStatement("SELECT * FROM student WHERE student_id = ? AND student_password = ?;");
 			stmt.setString(1, userId);
 			stmt.setString(2, password);
 			rs = this.stmt.executeQuery();

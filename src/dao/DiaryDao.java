@@ -16,18 +16,16 @@ public class DiaryDao extends DaoBase{
 
 		try {
 			super.connect();
-			stmt = this.con.prepareStatement("select d.insert_date, d.good_point, d.bad_point,d.student_comment, d.teacher_comment, s.student_name" +
-					"from diary as d inner join student as s on d.student_id = s.student_id"+
-					"where class_code = ?");
-			stmt.setString(1, classCode);
-			rs = stmt.executeQuery();
+			stmt = this.con.prepareStatement("SELECT d.insert_date, d.good_point, d.bad_point,d.student_comment, d.teacher_comment, s.student_name FROM diary AS d INNER JOIN student AS s ON d.student_id = s.student_id WHERE d.class_code = ?");
+			this.stmt.setString(1, classCode);
+			rs = this.stmt.executeQuery();
 			while(rs.next()) {
 				DiaryListBeans diary = new DiaryListBeans();
 				diary.setCreateDate(this.rs.getString("insert_date"));
 				diary.setGoodPoint(this.rs.getString("good_point"));
 				diary.setBadPoint(this.rs.getString("bad_point"));
-				diary.setStd_com(this.rs.getString("student_comment"));
-				diary.setTcr_com(this.rs.getString("teacher_comment"));
+				diary.setStdCom(this.rs.getString("student_comment"));
+				diary.setTcrCom(this.rs.getString("teacher_comment"));
 				diary.setUserName(this.rs.getString("student_name"));
 				diaryList.add(diary);
 
