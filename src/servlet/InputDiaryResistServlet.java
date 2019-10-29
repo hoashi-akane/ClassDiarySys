@@ -30,6 +30,7 @@ public class InputDiaryResistServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		Calendar cal = Calendar.getInstance();
+		//日付を設定
 		String day =Integer.toString(cal.get(Calendar.YEAR))+"年 "+Integer.toString(cal.get(Calendar.MONTH)+1)+"月 "+Integer.toString(cal.get(Calendar.DATE))+"日";
 		request.setAttribute("day",day);
 		request.getRequestDispatcher("WEB-INF/jsp/inputDiary.jsp").forward(request, response);

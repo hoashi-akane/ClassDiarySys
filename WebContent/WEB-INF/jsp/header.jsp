@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>公欠管理システム</title>
+<title>日誌管理システム</title>
 </head>
 
 <body>
