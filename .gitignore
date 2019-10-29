@@ -8,8 +8,7 @@ build/
 
 *.project
 
-Web-Content/META-INF/
-Web-Content/WEB-INF/lib/
+WebContent/WEB-INF/lib/
 
 **/cache/*
 !.gitkeep
