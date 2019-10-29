@@ -14,7 +14,7 @@
 <% String day = (String)request.getAttribute("day"); %>
 <div class="container">
 	<div class="row mt-5">
-		<h2 class="col-md-10 mb-4 text text-secondary" id="inputDiary">公欠登録</h2>
+		<h2 class="col-md-10 mb-4 text text-secondary" id="inputDiary">日誌登録</h2>
 
 		<form action="ConfirmAbsenceResistServlet" method="POST" class="col-md-8 offset-md-2 mx-auto text text-secondary">
 			<div class="form-group">
@@ -33,12 +33,12 @@
 			</div>
 
 			<div class="form-group">
-   				<label for="com">一言</label>
-   				<textarea class="form-control" id="com" class="form-control" name="std_com" rows="4" required></textarea>
+				<label for="com">一言</label>
+				<textarea class="form-control" id="com" class="form-control" name="std_com" rows="4" required></textarea>
 		  	</div>
 				<a href="MenuServlet" class="mt-3 ml-5 col-md-5  btn btn-lg btn-neutral border border-danger text-center float-left">戻る</a>
 				<button type="submit" class="mt-3 mr-5 col-md-5 btn btn-lg btn-neutral border border-danger text-center float-right">登録確認</button>
-			</form>
+		</form>
 
 	</div>
 </div>

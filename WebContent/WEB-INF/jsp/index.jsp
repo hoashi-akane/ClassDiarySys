@@ -25,7 +25,7 @@
 		<h3 class="col-md-8 offset-md-2 mx-auto text text-secondary">ようこそ<%=name %>さん</h3>
 		<div class="col-md-3 offset-md-2">
 			<table class="float-right" style="width:100%;">
-				<tr><td><form action="DispAbsenceListServlet" method="POST"><button type="submit" class="btn btn-neutral border border-danger" style="width:100%">日誌一覧表示</button></form></td>
+				<tr><td><form action="DispDiaryListServlet" method="POST"><button type="submit" class="btn btn-neutral border border-danger" style="width:100%">日誌一覧表示</button></form></td>
 				</tr>
 				<tr><td><form action="InputDiaryResistServlet" method="GET"><button type="submit" class="btn btn-neutral border border-danger" style="width:100%">日誌作成</button></form></td></tr>
 			</table>

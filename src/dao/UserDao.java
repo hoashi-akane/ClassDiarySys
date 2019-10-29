@@ -21,6 +21,7 @@ public class UserDao extends DaoBase{
 
 			loginInfo.setUserId(this.rs.getString("student_id"));
 			loginInfo.setUserName(this.rs.getString("student_name"));
+			loginInfo.setClassCode(this.rs.getString("class_code"));
 
 			super.close();
 

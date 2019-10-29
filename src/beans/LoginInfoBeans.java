@@ -6,6 +6,8 @@ public class LoginInfoBeans implements Serializable{
 
 	private String userId;
 	private String userName;
+	private String classCode;
+
 
 	public String getUserId() {
 		return userId;
@@ -18,6 +20,12 @@ public class LoginInfoBeans implements Serializable{
 	}
 	public void setUserName(String userName) {
 		this.userName = userName;
+	}
+	public String getClassCode() {
+		return classCode;
+	}
+	public void setClassCode(String classCode) {
+		this.classCode = classCode;
 	}
 
 }
