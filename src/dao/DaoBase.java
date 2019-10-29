@@ -25,7 +25,7 @@ public class DaoBase {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			//指定するDB接続
 			con = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/absence?characterEncoding=UTF-8&serverTimezone=JST","root","root");
+					"jdbc:mysql://localhost:3306/diary1801182?characterEncoding=UTF-8&serverTimezone=JST","root","root");
 		}catch(ClassNotFoundException e) {
 			e.printStackTrace();
 		}catch(SQLException e) {
