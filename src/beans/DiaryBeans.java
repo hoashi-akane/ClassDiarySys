@@ -8,8 +8,8 @@ public class DiaryBeans implements Serializable{
 	private String userId;
 	private String goodPoint;
 	private String badPoint;
-	private String std_com;
-	private String tcr_com;
+	private String stdCom;
+	private String tcrCom;
 
 
 	public String getCreateDate() {
@@ -42,17 +42,17 @@ public class DiaryBeans implements Serializable{
 	public void setBadPoint(String badPoint) {
 		this.badPoint = badPoint;
 	}
-	public String getStd_com() {
-		return std_com;
+	public String getStdCom() {
+		return stdCom;
 	}
-	public void setStd_com(String std_com) {
-		this.std_com = std_com;
+	public void setStdCom(String stdCom) {
+		this.stdCom = stdCom;
 	}
-	public String getTcr_com() {
-		return tcr_com;
+	public String getTcrCom() {
+		return tcrCom;
 	}
-	public void setTcr_com(String tcr_com) {
-		this.tcr_com = tcr_com;
+	public void setTcr_com(String tcrCom) {
+		this.tcrCom = tcrCom;
 	}
 
 
