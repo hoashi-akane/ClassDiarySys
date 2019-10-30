@@ -40,4 +40,29 @@ public class DiaryDao extends DaoBase{
 		}
 		return diaryList;
 	}
+
+	//	既に登録されているか調べる
+	public boolean insertDiaryChecker(String className, String day) {
+
+		boolean isSuccess = false;
+
+		try {
+			super.connect();
+			stmt = this.con.prepareStatement("SELECT  * FROM diary WHERE class_code = ? and insert_date ? ");
+			this.stmt.setString(1, className);
+			this.stmt.setString(2, day);
+			rs = this.stmt.executeQuery();
+//			なければtrue 既にある場合falseを返す
+			isSuccess = !rs.next();
+
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		try {
+			super.close();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return isSuccess;
+	}
 }
