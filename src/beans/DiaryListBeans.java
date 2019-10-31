@@ -2,7 +2,7 @@ package beans;
 
 public class DiaryListBeans {
 
-	private String createDate;
+	private String insertDate;
 	private String goodPoint;
 	private String badPoint;
 	private String stdCom;
@@ -16,11 +16,11 @@ public class DiaryListBeans {
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
-	public String getCreateDate() {
-		return createDate;
+	public String getInsertDate() {
+		return insertDate;
 	}
-	public void setCreateDate(String createDate) {
-		this.createDate = createDate;
+	public void setInsertDate(String insertDate) {
+		this.insertDate = insertDate;
 	}
 	public String getGoodPoint() {
 		return goodPoint;

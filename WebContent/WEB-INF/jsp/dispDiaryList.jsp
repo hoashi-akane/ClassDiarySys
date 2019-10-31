@@ -35,7 +35,7 @@ int i = 0;
 					<div class="card-header" id="heading<%=i%>">
 						<h5>
 							<button class="btn btn-link" data-toggle="collapse" data-target="#collapse<%=i %>" aria-expanded="false" aria-controls="collapse<%=i %>">
-								作成日：<%= diary.getCreateDate() %>  作成者：<%= diary.getUserName() %>
+								作成日：<%= diary.getInsertDate() %>  　　作成者：<%= diary.getUserName() %>
 							</button>
 						</h5>
 					</div>
@@ -58,7 +58,7 @@ int i = 0;
 				</div>
 				<% i++;} %>
 			</div>
-
+			<a href="MenuServlet" class="mt-3 ml-5 col-md-5  btn btn-lg btn-neutral border border-danger text-center float-left">戻る</a>
 		</div>
 	</div>
 </div>"

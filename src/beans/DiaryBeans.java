@@ -3,7 +3,7 @@ import java.io.Serializable;
 
 public class DiaryBeans implements Serializable{
 
-	private String createDate;
+	private String insertDate;
 	private String classCode;
 	private String userId;
 	private String goodPoint;
@@ -12,11 +12,11 @@ public class DiaryBeans implements Serializable{
 	private String tcrCom;
 
 
-	public String getCreateDate() {
-		return createDate;
+	public String getInsertDate() {
+		return insertDate;
 	}
-	public void setCreateDate(String createDate) {
-		this.createDate = createDate;
+	public void setInsertDate(String insertDate) {
+		this.insertDate = insertDate;
 	}
 	public String getClassCode() {
 		return classCode;
@@ -51,7 +51,7 @@ public class DiaryBeans implements Serializable{
 	public String getTcrCom() {
 		return tcrCom;
 	}
-	public void setTcr_com(String tcrCom) {
+	public void setTcr_Com(String tcrCom) {
 		this.tcrCom = tcrCom;
 	}
 

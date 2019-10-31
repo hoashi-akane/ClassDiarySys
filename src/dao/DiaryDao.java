@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import beans.DiaryBeans;
 import beans.DiaryListBeans;
 
 public class DiaryDao extends DaoBase{
@@ -21,7 +22,7 @@ public class DiaryDao extends DaoBase{
 			rs = this.stmt.executeQuery();
 			while(rs.next()) {
 				DiaryListBeans diary = new DiaryListBeans();
-				diary.setCreateDate(this.rs.getString("insert_date"));
+				diary.setInsertDate(this.rs.getString("insert_date"));
 				diary.setGoodPoint(this.rs.getString("good_point"));
 				diary.setBadPoint(this.rs.getString("bad_point"));
 				diary.setStdCom(this.rs.getString("student_comment"));
@@ -48,7 +49,7 @@ public class DiaryDao extends DaoBase{
 
 		try {
 			super.connect();
-			stmt = this.con.prepareStatement("SELECT  * FROM diary WHERE class_code = ? and insert_date ? ");
+			stmt = this.con.prepareStatement("SELECT  * FROM diary WHERE class_code = ? and insert_date = ? ");
 			this.stmt.setString(1, className);
 			this.stmt.setString(2, day);
 			rs = this.stmt.executeQuery();
@@ -56,6 +57,34 @@ public class DiaryDao extends DaoBase{
 			isSuccess = !rs.next();
 
 		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		try {
+			super.close();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return isSuccess;
+	}
+
+	//　日誌の登録を行う
+	public boolean insertDiaryRegist(DiaryBeans diary){
+
+		boolean isSuccess = false;
+		try {
+			super.connect();
+			stmt = this.con.prepareStatement("INSERT INTO diary(class_code, insert_date, student_id, good_point, bad_point, student_comment, teacher_comment) VALUES(?,?,?,?,?,?,?);");
+			this.stmt.setString(1, diary.getClassCode());
+			this.stmt.setString(2, diary.getInsertDate());
+			this.stmt.setString(3, diary.getUserId());
+			this.stmt.setString(4, diary.getGoodPoint());
+			this.stmt.setString(5, diary.getBadPoint());
+			this.stmt.setString(6, diary.getStdCom());
+			this.stmt.setString(7, diary.getTcrCom());
+			this.stmt.executeUpdate();
+
+			isSuccess = true;
+		}catch(SQLException e) {
 			e.printStackTrace();
 		}
 		try {
