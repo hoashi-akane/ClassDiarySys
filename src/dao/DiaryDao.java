@@ -17,7 +17,7 @@ public class DiaryDao extends DaoBase{
 
 		try {
 			super.connect();
-			stmt = this.con.prepareStatement("SELECT d.insert_date, d.good_point, d.bad_point,d.student_comment, d.teacher_comment, s.student_name FROM diary AS d INNER JOIN student AS s ON d.student_id = s.student_id WHERE d.class_code = ?");
+			stmt = this.con.prepareStatement("SELECT d.insert_date, d.good_point, d.bad_point,d.student_comment, d.teacher_comment, s.student_name FROM diary AS d INNER JOIN student AS s ON d.student_id = s.student_id WHERE d.class_code = ? ORDER BY d.insert_date;");
 			this.stmt.setString(1, classCode);
 			rs = this.stmt.executeQuery();
 			while(rs.next()) {
@@ -41,6 +41,31 @@ public class DiaryDao extends DaoBase{
 		}
 		return diaryList;
 	}
+	//　クラス日誌に登録されている日付のみ取得
+	public List<String> getDiaryDateList(String classCode){
+
+		List<String> diaryDateList = new ArrayList<String>();
+
+		try {
+			super.connect();
+			stmt = this.con.prepareStatement("SELECT insert_date FROM diary WHERE insert_date BETWEEN CURDATE() -30 AND CURDATE() + 0 AND class_code = ? ORDER BY insert_date");
+			this.stmt.setString(1, classCode);
+			rs = this.stmt.executeQuery();
+			while(rs.next()) {
+				diaryDateList.add(this.rs.getString("insert_date"));
+			}
+
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		try {
+			super.close();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return diaryDateList;
+	}
+
 
 	//	既に登録されているか調べる
 	public boolean insertDiaryChecker(String className, String day) {

@@ -26,7 +26,7 @@
 				<div class="text text-danger"></div>
 				<p id="Holiday">登録日  <%= day %></p>
 				<input type="hidden" name="day" value="<%=day %>"></input>
-				<label for="Holiday"><a href="">過去の日誌を登録したい方はこちら</a></label>
+				<label for="Holiday"><a href="CanInputResistListServlet">過去の日誌を登録したい方はこちら</a></label>
 			</div>
 			<div class="form-group">
 				<div class="text text-danger"></div>

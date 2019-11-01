@@ -52,7 +52,7 @@ public class InputDiaryResistServlet extends HttpServlet {
 			request.getRequestDispatcher("WEB-INF/jsp/inputDiary.jsp").forward(request, response);
 		}else {
 //	ここに入れるのは一覧から入力できる公欠日を取得するサーブレットの値
-
+			response.sendRedirect("CanInputResistListServlet");
 		}
 	}
 
