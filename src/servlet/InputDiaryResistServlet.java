@@ -8,6 +8,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import beans.LoginInfoBeans;
+import dao.DiaryDao;
 
 /**
  * Servlet implementation class InputDiaryResistServlet
@@ -29,12 +33,27 @@ public class InputDiaryResistServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		HttpSession session= request.getSession();
 		Calendar cal = Calendar.getInstance();
 		//日付を設定
-		String day =Integer.toString(cal.get(Calendar.YEAR))+"年 "+Integer.toString(cal.get(Calendar.MONTH)+1)+"月 "+Integer.toString(cal.get(Calendar.DATE))+"日";
-		request.setAttribute("day",day);
-		request.getRequestDispatcher("WEB-INF/jsp/inputDiary.jsp").forward(request, response);
+		String day = Integer.toString(cal.get(Calendar.YEAR))+"/"+Integer.toString(cal.get(Calendar.MONTH)+1)+"/"+Integer.toString(cal.get(Calendar.DATE));
 
+		String message = (String)request.getAttribute("message");
+		if(message == null) {
+			message ="";
+		}
+		request.setAttribute("message", message);
+
+		String classCode = ((LoginInfoBeans)session.getAttribute("loginInfo")).getClassCode();
+		DiaryDao diaryDao= new DiaryDao();
+//	今日の日誌を登録できるか調べる。できれば今日の日誌用の登録画面へ　無理なら過去の日誌登録画面へ遷移
+		if(diaryDao.insertDiaryChecker(classCode, day)) {
+			request.setAttribute("day",day);
+			request.getRequestDispatcher("WEB-INF/jsp/inputDiary.jsp").forward(request, response);
+		}else {
+//	ここに入れるのは一覧から入力できる公欠日を取得するサーブレットの値
+			response.sendRedirect("CanInputResistListServlet");
+		}
 	}
 
 	/**

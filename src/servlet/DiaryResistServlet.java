@@ -17,14 +17,14 @@ import dao.DiaryDao;
 /**
  * Servlet implementation class ConfirmDiaryResistServlet
  */
-@WebServlet("/ConfirmDiaryResistServlet")
-public class ConfirmDiaryResistServlet extends HttpServlet {
+@WebServlet("/DiaryResistServlet")
+public class DiaryResistServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ConfirmDiaryResistServlet() {
+    public DiaryResistServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,29 +35,43 @@ public class ConfirmDiaryResistServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		Calendar cal = Calendar.getInstance();
-		String nowday =Integer.toString(cal.get(Calendar.YEAR))+"年 "+Integer.toString(cal.get(Calendar.MONTH)+1)+"月 "+Integer.toString(cal.get(Calendar.DATE))+"日";
+		String nowday =Integer.toString(cal.get(Calendar.YEAR))+"/"+Integer.toString(cal.get(Calendar.MONTH)+1)+"/"+Integer.toString(cal.get(Calendar.DATE));
 		String inputDay = request.getParameter("day");
 		String message ="";
-		if(nowday != inputDay) {
+
+		if(!(nowday.equals(inputDay))) {
 			message = "現在の日付と記入された時点の日付が異なります。";
+			request.setAttribute("message", message);
+			response.sendRedirect("InputDiaryResistServlet");
 		}else {
-			//	セッションの開始と重複確認
+
 			HttpSession session = request.getSession();
+
 			DiaryDao diaryDao = new DiaryDao();
 			LoginInfoBeans loginInfo = (LoginInfoBeans)session.getAttribute("loginInfo");
-			//			重複しなければif通る
-			if(diaryDao.insertDiaryChecker(loginInfo.getClassCode(),inputDay)) {
-				String good = request.getParameter("good");
-				String bad = request.getParameter("bad");
-				String com = request.getParameter("com");
-				DiaryBeans diaryBeans = new DiaryBeans();
-				diaryBeans.setGoodPoint(good);
-				diaryBeans.setBadPoint(bad);
-				diaryBeans.setStdCom(com);
+			String classCode = loginInfo.getClassCode();
+
+			String good = request.getParameter("good_com");
+			String bad = request.getParameter("bad_com");
+			String com = request.getParameter("std_com");
+
+			DiaryBeans diaryBeans = new DiaryBeans();
+			diaryBeans.setInsertDate(inputDay);
+			diaryBeans.setClassCode(classCode);
+			diaryBeans.setUserId(loginInfo.getUserId());
+			diaryBeans.setGoodPoint(good);
+			diaryBeans.setBadPoint(bad);
+			diaryBeans.setStdCom(com);
+			diaryBeans.setTcr_Com("");
+
+			if(diaryDao.insertDiaryRegist(diaryBeans)) {
+				request.getRequestDispatcher("WEB-INF/jsp/completeDiaryResist.jsp").forward(request, response);
 			}else {
-				message = "その日付の日誌は既に他のユーザーにより登録されています！";
-		}
+				message = "登録に失敗しました。今日の日誌は既に登録されている可能性があります。";
+				request.setAttribute("message",message);
+				response.sendRedirect("InputDiaryResistServlet");
+			}
 		}
 	}
-
 }
+

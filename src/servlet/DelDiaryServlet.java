@@ -15,33 +15,42 @@ import beans.LoginInfoBeans;
 import dao.DiaryDao;
 
 /**
- * Servlet implementation class DispDiaryListServlet
+ * Servlet implementation class DelAbsenceServlet
  */
-@WebServlet("/DispDiaryListServlet")
-public class DispDiaryListServlet extends HttpServlet {
+@WebServlet("/DelAbsenceServlet")
+public class DelDiaryServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DispDiaryListServlet() {
+    public DelDiaryServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		HttpSession session = request.getSession();
-
-		//userIdから一覧を呼び出す
-		String classCode = ((LoginInfoBeans)session.getAttribute("loginInfo")).getClassCode();
 		DiaryDao diaryDao = new DiaryDao();
-		List<DiaryListBeans> diaryList = diaryDao.getDiaryList(classCode);
-		session.setAttribute("diaryList",diaryList);
-		request.getRequestDispatcher("WEB-INF/jsp/dispDiaryList.jsp").forward(request, response);
+
+		LoginInfoBeans loginInfo = (LoginInfoBeans)session.getAttribute("loginInfo");
+		List<DiaryListBeans> diaryList = diaryDao.getDelDiaryList(loginInfo.getUserId());
+
+
+		request.setAttribute("diaryList", diaryList);
+		request.getRequestDispatcher("WEB-INF/jsp/delDiary.jsp").forward(request, response);
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
 	}
 
 }
