@@ -119,4 +119,33 @@ public class DiaryDao extends DaoBase{
 		}
 		return isSuccess;
 	}
+
+	//　複数の日誌を登録する
+	public boolean multiInsertDiaryResist(List<DiaryBeans> multiDiary) {
+
+		boolean isSuccess = false;
+		try {
+			super.connect();
+			for (DiaryBeans diary : multiDiary) {
+				stmt = this.con.prepareStatement("INSERT INTO diary(class_code, insert_date, student_id, good_point, bad_point, student_comment, teacher_comment) VALUES(?,?,?,?,?,?,?);");
+				this.stmt.setString(1, diary.getClassCode());
+				this.stmt.setString(2, diary.getInsertDate());
+				this.stmt.setString(3, diary.getUserId());
+				this.stmt.setString(4, diary.getGoodPoint());
+				this.stmt.setString(5, diary.getBadPoint());
+				this.stmt.setString(6, diary.getStdCom());
+				this.stmt.setString(7, diary.getTcrCom());
+				this.stmt.executeUpdate();
+			}
+			isSuccess = true;
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		try {
+			super.close();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return isSuccess;
+	}
 }

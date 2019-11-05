@@ -40,6 +40,12 @@ public class CanInputResistListServlet extends HttpServlet {
 		String classCode = ((LoginInfoBeans)session.getAttribute("loginInfo")).getClassCode();
 		DiaryDao diaryDao = new DiaryDao();
 
+		String message = (String)request.getAttribute("massage");
+		if(message == null) {
+			message = "";
+		}
+		request.setAttribute("message", message);
+
 		//登録できない日付が入っている
 		List<String> diaryDateList = diaryDao.getDiaryDateList(classCode);
 
@@ -56,9 +62,8 @@ public class CanInputResistListServlet extends HttpServlet {
 
 		for(int i = 0; i < 31; i++) {
 			String day = sdf.format(cal.getTime()).toString();
-			System.out.println(day);
+
 			if(diaryDateList != null && diaryDateList.size() > 0) {
-				System.out.println(diaryDateList.get(0));
 				if(day.equals(diaryDateList.get(0))){
 
 					diaryDateList.remove(0);

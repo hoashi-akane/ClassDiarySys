@@ -20,6 +20,7 @@
 <%
 	List<String> canInputDiary = (List<String>)request.getAttribute("canInputDiary");
 	int i=0;
+	String message = (String)request.getAttribute("message");
 %>
 <header>
 	<%@include file="/WEB-INF/jsp/header.jsp" %>
@@ -28,15 +29,17 @@
 	<div class="row mt-5">
 		<h2 class="col-md-10 mb-4 text text-secondary">作成可能日誌一覧</h2>
 		<div class="col-md-8 offset-md-2">
+
 			<div id="accordion">
-			<form action = "MultiInputDiaryResistServlet">
-			<% for(String diary : canInputDiary ){%>
+			<form action = "MultiInputDiaryResistServlet" method="POST">
+			<% for(String diary : canInputDiary ){ %>
 				<div class="card">
 					<div class="card-header font-weight-bold" id="heading<%=i%>">
 						<h5 class="text-danger">
 						<button type="button" class="btn btn-link" data-toggle="collapse" data-target="#collapse<%=i %>" aria-expanded="false" aria-controls="collapse<%=i %>">
 							本来の記入日：<%= diary %>　　　作成
-							<input type="checkbox" name="chk" value=chk<%=i %>>
+							<input type="checkbox" name="chk" value=<%= i %>>
+							<input type="hidden" name="hid<%=i%>" value=<%= diary %>>
 						</button>
 						</h5>
 					</div>
