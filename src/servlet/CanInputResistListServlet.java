@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -45,15 +46,21 @@ public class CanInputResistListServlet extends HttpServlet {
 		//登録できる日付を入れる
 		List<String> canInputDiary = new ArrayList<String>();
 
-		Calendar cal = Calendar.getInstance();
 
-		// カレンダーは月が0から始まるため1か月を引いていない。
-		System.out.println(diaryDateList.size());
-		for(int i = 0; i < 30; i++) {
-			String day = Integer.toString(cal.get(Calendar.YEAR))+"-"+Integer.toString(cal.get(Calendar.MONTH))+"-"+Integer.toString(cal.get(Calendar.DATE));
+		Calendar cal = Calendar.getInstance();
+//		31日前まで（1か月) DATE型に変換しても-1が12月として認識されたからOK
+		cal.add(Calendar.MONTH , -1);
+
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+
+		for(int i = 0; i < 31; i++) {
+			String day = sdf.format(cal.getTime()).toString();
 			System.out.println(day);
 			if(diaryDateList != null && diaryDateList.size() > 0) {
+				System.out.println(diaryDateList.get(0));
 				if(day.equals(diaryDateList.get(0))){
+
 					diaryDateList.remove(0);
 				}else {
 					canInputDiary.add(day);
