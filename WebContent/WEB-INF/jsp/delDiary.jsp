@@ -16,6 +16,21 @@
 <%@include file="../../js/core/jquery.min.js"%>
 <%@include file="../../js/core/bootstrap.min.js"%>
 <%@include file="../../js/core/popper.min.js"%>
+$(function(){
+	  // 初期状態のボタンは無効
+	  $("#delbtn").prop("disabled", true);
+	    // チェックボックスの状態が変わったら（クリックされたら）
+	    $("input[type='checkbox']").on('change', function () {
+	        // チェックされているチェックボックスの数
+	        if ($(".chk:checked").length > 0) {
+	          // ボタン有効
+	          $("#delbtn").prop("disabled", false);
+	        } else {
+	          // ボタン無効
+	          $("#deltbtn").prop("disabled", true);
+	        }
+	    });
+});
 </script>
 <body>
 <body>
@@ -68,7 +83,7 @@ int i = 0;
 
 			<div class="col-md-12 p-0">
 			<a href="MenuServlet" class="m-0 col-md-6 btn btn-lg btn-neutral border border-danger text-center">戻る</a>
-			<button class="float-right mx-0 col-md-6 btn-neutral btn-lg border border-danger" type="button" id="insertbtn"  data-toggle="modal" data-target="#myModal">削除</button>
+			<button class="float-right mx-0 col-md-6 btn-neutral btn-lg border border-danger" type="button" id="delbtn"  data-toggle="modal" data-target="#myModal">削除</button>
 			</div>
 			<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 				<div class="modal-dialog" role="document">
