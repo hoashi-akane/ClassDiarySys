@@ -17,7 +17,7 @@ import dao.DiaryDao;
 /**
  * Servlet implementation class DelAbsenceServlet
  */
-@WebServlet("/DelAbsenceServlet")
+@WebServlet("/DelDiaryServlet")
 public class DelDiaryServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -50,7 +50,19 @@ public class DelDiaryServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		HttpSession session = request.getSession();
+		String[] check = request.getParameterValues("chk");
+		String userId = ((LoginInfoBeans)session.getAttribute("loginInfo")).getUserId();
+		DiaryDao diaryDao = new DiaryDao();
+
+		if(diaryDao.delDiary(check, userId)) {
+			String[] message = {"削除","削除が完了しました。"};
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("WEB-INF/jsp/completeDiaryResist.jsp").forward(request, response);
+		}else {
+
+		}
+
 	}
 
 }

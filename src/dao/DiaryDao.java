@@ -149,6 +149,7 @@ public class DiaryDao extends DaoBase{
 		return isSuccess;
 	}
 
+	// 利用者が作成した日誌を取得
 	public List<DiaryListBeans> getDelDiaryList(String userId){
 
 		List<DiaryListBeans> diaryList = new ArrayList<DiaryListBeans>();
@@ -177,6 +178,30 @@ public class DiaryDao extends DaoBase{
 			e.printStackTrace();
 		}
 		return diaryList;
+	}
+
+	//　利用者が作成した日誌を削除
+	public boolean delDiary(String[] delDays, String userId) {
+
+		boolean isSuccess = false;
+		try {
+			super.connect();
+			for(String delDay : delDays) {
+				stmt = this.con.prepareStatement("DELETE FROM diary WHERE insert_date = ? AND student_id = ?;");
+				this.stmt.setString(1, delDay);
+				this.stmt.setString(2, userId);
+				this.stmt.executeUpdate();
+			}
+			isSuccess = true;
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		try {
+			super.close();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return isSuccess;
 	}
 
 }

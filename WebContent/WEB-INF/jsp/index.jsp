@@ -32,9 +32,9 @@
 		</div>
 		<div class="col-md-3 offset-md-1">
 			<table class="float-left" style="width:100%">
-				<tr><td><form action="DelAbsenceServlet" method="GET"><button type="submit" class="btn btn-neutral border border-danger" style="width:100%">日誌削除</button></form></td>
+				<tr><td><form action="DelDiaryServlet" method="GET"><button type="submit" class="btn btn-neutral border border-danger" style="width:100%">日誌削除</button></form></td>
 				</tr>
-				<tr><td><form action="RevisionAbsenceServlet" method="GET"><button type="submit" class="btn btn-neutral border border-danger" style="width:100%">日誌修正</button></form></td></tr>
+				<tr><td><form action="RevisionDiaryServlet" method="GET"><button type="submit" class="btn btn-neutral border border-danger" style="width:100%">日誌修正</button></form></td></tr>
 			</table>
 		</div>
 	</div>

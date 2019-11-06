@@ -37,11 +37,11 @@ public class DiaryResistServlet extends HttpServlet {
 		Calendar cal = Calendar.getInstance();
 		String nowday =Integer.toString(cal.get(Calendar.YEAR))+"/"+Integer.toString(cal.get(Calendar.MONTH)+1)+"/"+Integer.toString(cal.get(Calendar.DATE));
 		String inputDay = request.getParameter("day");
-		String message ="";
+		String errorMsg ="";
 
 		if(!(nowday.equals(inputDay))) {
-			message = "現在の日付と記入された時点の日付が異なります。";
-			request.setAttribute("message", message);
+			errorMsg = "現在の日付と記入された時点の日付が異なります。";
+			request.setAttribute("message", errorMsg);
 			response.sendRedirect("InputDiaryResistServlet");
 		}else {
 
@@ -65,10 +65,12 @@ public class DiaryResistServlet extends HttpServlet {
 			diaryBeans.setTcr_Com("");
 
 			if(diaryDao.insertDiaryRegist(diaryBeans)) {
+				String[] message = {"登録","登録が完了しました！"};
+				request.setAttribute("message",message);
 				request.getRequestDispatcher("WEB-INF/jsp/completeDiaryResist.jsp").forward(request, response);
 			}else {
-				message = "登録に失敗しました。今日の日誌は既に登録されている可能性があります。";
-				request.setAttribute("message",message);
+				errorMsg = "登録に失敗しました。今日の日誌は既に登録されている可能性があります。";
+				request.setAttribute("message",errorMsg);
 				response.sendRedirect("InputDiaryResistServlet");
 			}
 		}
