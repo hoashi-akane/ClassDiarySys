@@ -215,6 +215,7 @@ public class DiaryDao extends DaoBase{
 			super.connect();
 			for(DiaryListBeans diary : diaryList) {
 				stmt = this.con.prepareStatement("UPDATE diary SET good_point = ?, bad_point = ?, student_comment = ? WHERE insert_date = ? AND student_id = ?;");
+
 				this.stmt.setString(1, diary.getGoodPoint());
 				this.stmt.setString(2, diary.getBadPoint());
 				this.stmt.setString(3, diary.getStdCom());
