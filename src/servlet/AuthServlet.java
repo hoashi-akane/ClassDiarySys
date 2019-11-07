@@ -62,7 +62,7 @@ public class AuthServlet extends HttpServlet {
 			session.setAttribute("password", password);
 		}
 
-		//　ハッシュ処理
+//　ハッシュ処理 ----
 		char[] passCharArray = password.toCharArray();
 		byte[] salt = userDao.getSalt(userId);
 
@@ -84,13 +84,15 @@ public class AuthServlet extends HttpServlet {
 		}
 		byte[] passByteArray = secretKey.getEncoded();
 
-		//16進数の文字列に変換
+		// 16進数の文字列に変換
 		StringBuilder sb = new StringBuilder(64);
 		for(byte b : passByteArray) {
 			sb.append(String.format("%02x", b & 0xff));
 		}
 		String hashPass = sb.toString();
+//　ハッシュ処理ここまで ----
 
+		// 認証
 		LoginInfoBeans loginInfo = userDao.getBy(userId,hashPass);
 
 		if(loginInfo != null) {
