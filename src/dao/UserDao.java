@@ -32,4 +32,23 @@ public class UserDao extends DaoBase{
 		}
 		return loginInfo;
 	}
+
+	public byte[] getSalt(String userId) {
+
+		byte[] salt;
+		try {
+			super.connect();
+			stmt = this.con.prepareStatement("SELECT salt FROM student WHERE student_id = ?;");
+			stmt.setString(1, userId);
+			rs = this.stmt.executeQuery();
+			rs.next();
+
+			salt = this.rs.getBytes("salt");
+
+		}catch(SQLException e) {
+			salt = new byte[0];
+			e.printStackTrace();
+		}
+		return salt;
+	}
 }

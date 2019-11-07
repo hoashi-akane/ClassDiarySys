@@ -1,7 +1,12 @@
 package servlet;
 
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 
+import javax.crypto.SecretKey;
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.PBEKeySpec;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,6 +24,9 @@ import dao.UserDao;
 public class AuthServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	private static final String ALGORITHM = "PBKDF2WithHmacSHA256";
+	private static final int ITERATION_COUNT = 13142;
+	private static final int KEY_LENGTH = 256;
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -42,8 +50,6 @@ public class AuthServlet extends HttpServlet {
 
 		//daoインスタンス
 		UserDao userDao = new UserDao();
-		LoginInfoBeans loginInfo = userDao.getBy(userId,password);
-
 
 		//遷移先
 		String path = "";
@@ -55,6 +61,40 @@ public class AuthServlet extends HttpServlet {
 		}else {
 			session.setAttribute("password", password);
 		}
+
+//　ハッシュ処理 ----
+		char[] passCharArray = password.toCharArray();
+		byte[] salt = userDao.getSalt(userId);
+
+		PBEKeySpec keySpec = new PBEKeySpec(passCharArray, salt, ITERATION_COUNT, KEY_LENGTH);
+
+		SecretKeyFactory skf;
+
+		try {
+			skf = SecretKeyFactory.getInstance(ALGORITHM);
+		}catch (NoSuchAlgorithmException e) {
+			throw new RuntimeException(e);
+		}
+
+		SecretKey secretKey;
+		try {
+			secretKey = skf.generateSecret(keySpec);
+		}catch(InvalidKeySpecException e) {
+			throw new RuntimeException(e);
+		}
+		byte[] passByteArray = secretKey.getEncoded();
+
+		// 16進数の文字列に変換
+		StringBuilder sb = new StringBuilder(64);
+		for(byte b : passByteArray) {
+			sb.append(String.format("%02x", b & 0xff));
+		}
+		String hashPass = sb.toString();
+//　ハッシュ処理ここまで ----
+
+		// 認証
+		LoginInfoBeans loginInfo = userDao.getBy(userId,hashPass);
+
 		if(loginInfo != null) {
 			//取得できた
 			session.setAttribute("loginInfo",loginInfo);

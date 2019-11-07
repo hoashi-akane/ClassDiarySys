@@ -56,10 +56,12 @@ public class MultiInputDiaryResistServlet extends HttpServlet {
 
 		DiaryDao diaryDao = new DiaryDao();
 		if(diaryDao.multiInsertDiaryResist(multiDiary)) {
+			String[] message = {"登録", "登録が完了しました！"};
+			request.setAttribute("message", message);
 			request.getRequestDispatcher("WEB-INF/jsp/completeDiaryResist.jsp").forward(request, response);
 		}else {
-			String message ="既に登録されている日誌が選択されています。";
-			request.setAttribute("message",message);
+			String errorMsg ="既に登録されている日誌が選択されています。";
+			request.setAttribute("message", errorMsg);
 			response.sendRedirect("CanInputResistListServlet");
 		}
 	}
