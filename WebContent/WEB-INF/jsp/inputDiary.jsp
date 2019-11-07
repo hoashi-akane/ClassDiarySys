@@ -42,9 +42,10 @@
 				<label for="com">一言</label>
 				<textarea class="form-control" id="com" class="form-control" name="std_com" maxlength="30" rows="2"></textarea>
 		  	</div>
-				<a href="MenuServlet" class="mt-3 ml-5 col-md-5  btn btn-lg btn-neutral border border-danger text-center float-left">戻る</a>
-				<button type="button" class="mt-3 mr-5 col-md-5 btn btn-lg btn-neutral border border-danger text-center float-right" data-toggle="modal" data-target="#myModal">登録</button>
-
+		  	<div class="col-md-12 p-0">
+				<a href="MenuServlet" class="m-0 col-md-6  btn btn-lg btn-neutral border border-danger text-center float-left">戻る</a>
+				<button type="button" class="mx-0 col-md-6 btn btn-lg btn-neutral border border-danger text-center float-right" data-toggle="modal" data-target="#myModal">登録</button>
+			</div>
 			<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 				<div class="modal-dialog" role="document">
 	    			<div class="modal-content">

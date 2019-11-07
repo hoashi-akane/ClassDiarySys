@@ -53,7 +53,8 @@ int i = 0;
 						<h5>
 							<button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse<%=i %>" aria-expanded="false" aria-controls="collapse<%=i %>">
 								作成日：<%= diary.getInsertDate() %>  　　作成者：<%= diary.getUserName() %>
-							<input class="chk" type="checkbox" name="chk" value="<%= diary.getInsertDate() %>">
+							<input class="chk" type="checkbox" name="chk" value="<%=i%>">
+							<input type="hidden" name="day<%=i%>" value="<%= diary.getInsertDate() %>">
 							</button>
 						</h5>
 					</div>
@@ -78,8 +79,9 @@ int i = 0;
 
 			<div class="col-md-12 p-0">
 			<a href="MenuServlet" class="m-0 col-md-6 btn btn-lg btn-neutral border border-danger text-center">戻る</a>
-			<button class="float-right mx-0 col-md-6 btn-neutral btn-lg border border-danger" type="button" id="revbtn"  data-toggle="modal" data-target="#myModal">修正</button>
+			<button class="float-right mx-0 col-md-6 btn btn-neutral btn-lg border border-danger" type="button" id="revbtn"  data-toggle="modal" data-target="#myModal">修正</button>
 			</div>
+
 			<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 				<div class="modal-dialog" role="document">
     				<div class="modal-content">

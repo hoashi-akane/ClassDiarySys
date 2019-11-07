@@ -29,8 +29,8 @@ public class DiaryDao extends DaoBase{
 				diary.setTcrCom(this.rs.getString("teacher_comment"));
 				diary.setUserName(this.rs.getString("student_name"));
 				diaryList.add(diary);
-
 			}
+
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
@@ -109,6 +109,7 @@ public class DiaryDao extends DaoBase{
 			this.stmt.executeUpdate();
 
 			isSuccess = true;
+
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
@@ -138,6 +139,7 @@ public class DiaryDao extends DaoBase{
 				this.stmt.executeUpdate();
 			}
 			isSuccess = true;
+
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
@@ -193,6 +195,35 @@ public class DiaryDao extends DaoBase{
 				this.stmt.executeUpdate();
 			}
 			isSuccess = true;
+
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		try {
+			super.close();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return isSuccess;
+	}
+
+	//　利用者が作成した日誌を修正
+	public boolean revisionDiary(List<DiaryListBeans> diaryList, String userId) {
+
+		boolean isSuccess = false;
+		try {
+			super.connect();
+			for(DiaryListBeans diary : diaryList) {
+				stmt = this.con.prepareStatement("UPDATE diary SET good_point = ?, bad_point = ?, student_comment = ? WHERE insert_date = ? AND student_id = ?;");
+				this.stmt.setString(1, diary.getGoodPoint());
+				this.stmt.setString(2, diary.getBadPoint());
+				this.stmt.setString(3, diary.getStdCom());
+				this.stmt.setString(4, diary.getInsertDate());
+				this.stmt.setString(5, userId);
+				this.stmt.executeUpdate();
+			}
+			isSuccess = true;
+
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
