@@ -9,8 +9,8 @@
 <title>Insert title here</title>
 </head>
 <style>
-<%@include file="../../css/bootstrap.min.css"%>
-<%@include file="../../css/now-ui-kit.css"%>
+<%@include file="../../css/nowuicss/bootstrap.min.css"%>
+<%@include file="../../css/nowuicss/now-ui-kit.css"%>
 </style>
 <script>
 <%@include file="../../js/core/jquery.min.js"%>
