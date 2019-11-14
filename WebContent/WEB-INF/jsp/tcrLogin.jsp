@@ -25,10 +25,10 @@ if(msg == null){
 <div class="container">
 	<div class="row mt-5">
 		<h2 class="col-md-10 mb-4 text text-secondary">Login</h2>
-		<form action="AuthServlet" method="POST" class="col-md-8 offset-md-2 mx-auto text text-secondary">
+		<form action="TcrAuthServlet" method="POST" class="col-md-8 offset-md-2 mx-auto text text-secondary">
 			<p class="text-primary"><%=msg %></p>
 			<div class="form-group">
-					<label for="UserID">学籍番号</label>
+					<label for="UserID">教員ID</label>
 					<input type="text" class="form-control" id="UserID" placeholder="例:サンプル太郎" name="userId">
 				</div>
 			<div class="form-group">

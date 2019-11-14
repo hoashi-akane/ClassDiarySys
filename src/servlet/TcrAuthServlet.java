@@ -14,23 +14,24 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import beans.LoginInfoBeans;
+import beans.TcrLoginInfoBeans;
 import dao.UserDao;
 
 /**
- * Servlet implementation class AuthServlet
+ * Servlet implementation class TcrAuthServlet
  */
-@WebServlet("/AuthServlet")
-public class AuthServlet extends HttpServlet {
+@WebServlet("/TcrAuthServlet")
+public class TcrAuthServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private static final String ALGORITHM = "PBKDF2WithHmacSHA256";
-	private static final int ITERATION_COUNT = 13142;
+	private static final int ITERATION_COUNT = 17548;
 	private static final int KEY_LENGTH = 256;
+
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AuthServlet() {
+    public TcrAuthServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -38,6 +39,10 @@ public class AuthServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
+	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
@@ -64,14 +69,12 @@ public class AuthServlet extends HttpServlet {
 
 //　ハッシュ処理 ----
 		char[] passCharArray = password.toCharArray();
-		byte[] salt = userDao.getSalt(userId);
+		byte[] salt = userDao.getTcrSalt(userId);
 
 		if(salt != null) {
 
-			PBEKeySpec keySpec = new PBEKeySpec(passCharArray, salt, ITERATION_COUNT, KEY_LENGTH);
-
-			SecretKeyFactory skf;
-
+				PBEKeySpec keySpec = new PBEKeySpec(passCharArray, salt, ITERATION_COUNT, KEY_LENGTH);
+				SecretKeyFactory skf;
 			try {
 				skf = SecretKeyFactory.getInstance(ALGORITHM);
 			}catch (NoSuchAlgorithmException e) {
@@ -91,33 +94,31 @@ public class AuthServlet extends HttpServlet {
 			for(byte b : passByteArray) {
 				sb.append(String.format("%02x", b & 0xff));
 			}
-
 			String hashPass = sb.toString();
 	//　ハッシュ処理ここまで ----
 
-			// 認証
-			LoginInfoBeans loginInfo = userDao.getBy(userId,hashPass);
 
-			if(loginInfo != null) {
+			// 認証
+			TcrLoginInfoBeans tcrLoginInfo = userDao.getTcrBy(userId,hashPass);
+
+			if(tcrLoginInfo != null) {
 				//取得できた
-				session.setAttribute("loginInfo",loginInfo);
-				path = "MenuServlet";
+				session.setAttribute("tcrLoginInfo",tcrLoginInfo);
+				path = "TcrMenuServlet";
 				response.sendRedirect(path);
 			} else {
 				//取得できない
-				path = "/WEB-INF/jsp/login.jsp";
-				String msg="正しい学籍番号またはパスワードを入力してください";
+				path = "/WEB-INF/jsp/tcrLogin.jsp";
+				String msg="正しい教員IDまたはパスワードを入力してください";
 				request.setAttribute("msg", msg);
 				request.getRequestDispatcher(path).forward(request, response);
 			}
 		}else {
-			path = "/WEB-INF/jsp/login.jsp";
-			String msg="正しい学籍番号またはパスワードを入力してください";
+			path = "/WEB-INF/jsp/tcrLogin.jsp";
+			String msg="正しい教員IDまたはパスワードを入力してください";
 			request.setAttribute("msg", msg);
 			request.getRequestDispatcher(path).forward(request, response);
 		}
-
-
 	}
 
 }
