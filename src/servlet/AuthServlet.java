@@ -57,7 +57,7 @@ public class AuthServlet extends HttpServlet {
 
 		if(check == null) {
 			//パスワード保持にチェックが入っていない
-			password="";
+			session.removeAttribute("password");
 		}else {
 			session.setAttribute("password", password);
 		}
@@ -66,48 +66,57 @@ public class AuthServlet extends HttpServlet {
 		char[] passCharArray = password.toCharArray();
 		byte[] salt = userDao.getSalt(userId);
 
-		PBEKeySpec keySpec = new PBEKeySpec(passCharArray, salt, ITERATION_COUNT, KEY_LENGTH);
+		if(salt != null) {
 
-		SecretKeyFactory skf;
+			PBEKeySpec keySpec = new PBEKeySpec(passCharArray, salt, ITERATION_COUNT, KEY_LENGTH);
 
-		try {
-			skf = SecretKeyFactory.getInstance(ALGORITHM);
-		}catch (NoSuchAlgorithmException e) {
-			throw new RuntimeException(e);
-		}
+			SecretKeyFactory skf;
 
-		SecretKey secretKey;
-		try {
-			secretKey = skf.generateSecret(keySpec);
-		}catch(InvalidKeySpecException e) {
-			throw new RuntimeException(e);
-		}
-		byte[] passByteArray = secretKey.getEncoded();
+			try {
+				skf = SecretKeyFactory.getInstance(ALGORITHM);
+			}catch (NoSuchAlgorithmException e) {
+				throw new RuntimeException(e);
+			}
 
-		// 16進数の文字列に変換
-		StringBuilder sb = new StringBuilder(64);
-		for(byte b : passByteArray) {
-			sb.append(String.format("%02x", b & 0xff));
-		}
-		String hashPass = sb.toString();
-//　ハッシュ処理ここまで ----
+			SecretKey secretKey;
+			try {
+				secretKey = skf.generateSecret(keySpec);
+			}catch(InvalidKeySpecException e) {
+				throw new RuntimeException(e);
+			}
+			byte[] passByteArray = secretKey.getEncoded();
 
-		// 認証
-		LoginInfoBeans loginInfo = userDao.getBy(userId,hashPass);
+			// 16進数の文字列に変換
+			StringBuilder sb = new StringBuilder(64);
+			for(byte b : passByteArray) {
+				sb.append(String.format("%02x", b & 0xff));
+			}
 
-		if(loginInfo != null) {
-			//取得できた
-			session.setAttribute("loginInfo",loginInfo);
-			path = "MenuServlet";
-			response.sendRedirect(path);
-		} else {
-			//取得できない
-			session.setAttribute("loginFailed", true);
+			String hashPass = sb.toString();
+	//　ハッシュ処理ここまで ----
+
+			// 認証
+			LoginInfoBeans loginInfo = userDao.getBy(userId,hashPass);
+
+			if(loginInfo != null) {
+				//取得できた
+				session.setAttribute("loginInfo",loginInfo);
+				path = "MenuServlet";
+				response.sendRedirect(path);
+			} else {
+				//取得できない
+				path = "/WEB-INF/jsp/login.jsp";
+				String msg="正しい学籍番号またはパスワードを入力してください";
+				request.setAttribute("msg", msg);
+				request.getRequestDispatcher(path).forward(request, response);
+			}
+		}else {
 			path = "/WEB-INF/jsp/login.jsp";
 			String msg="正しい学籍番号またはパスワードを入力してください";
 			request.setAttribute("msg", msg);
 			request.getRequestDispatcher(path).forward(request, response);
 		}
+
 
 	}
 
