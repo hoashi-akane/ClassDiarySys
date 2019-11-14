@@ -43,14 +43,16 @@ public class MyFilter implements Filter {
 
 
 		String name = ((HttpServletRequest)request).getServletPath();
-		if( name.equals("/LoginServlet") || name.equals("/AuthServlet")) {
+// ログイン前
+		if( name.equals("/LoginServlet") || name.equals("/AuthServlet") || name.equals("/TcrLoginServlet") || name.equals("/TcrAuthServlet")) {
 			chain.doFilter(request, response);
-
+// 本来ログイン後の画面にいる
 		}else {
 			HttpSession session = ((HttpServletRequest)request).getSession(false);
+//セッション自体ない場合と、教員ログインか学生ログインかによって処理分割
 			if(session == null) {
 				((HttpServletResponse)response).sendRedirect("LoginServlet");
-			}else if(session.getAttribute("loginInfo") == null){//pass the request along the filter chain
+			}else if(session.getAttribute("loginInfo") == null && session.getAttribute("tcrLoginInfo") == null) {
 				((HttpServletResponse)response).sendRedirect("LoginServlet");
 			}else {
 				chain.doFilter(request, response);

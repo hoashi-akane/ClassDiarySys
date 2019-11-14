@@ -3,6 +3,7 @@ package dao;
 import java.sql.SQLException;
 
 import beans.LoginInfoBeans;
+import beans.TcrLoginInfoBeans;
 
 public class UserDao extends DaoBase{
 
@@ -33,6 +34,7 @@ public class UserDao extends DaoBase{
 		return loginInfo;
 	}
 
+// ユーザーIDからソルトを取得する
 	public byte[] getSalt(String userId) {
 
 		byte[] salt;
@@ -42,12 +44,55 @@ public class UserDao extends DaoBase{
 			stmt.setString(1, userId);
 			rs = this.stmt.executeQuery();
 			rs.next();
-
 			salt = this.rs.getBytes("salt");
 
 		}catch(SQLException e) {
-			salt = new byte[0];
+			salt = null;
+		}
+		return salt;
+	}
+
+	//教員用ログイン処理
+	public TcrLoginInfoBeans getTcrBy(String userId, String password) {
+
+		//アカウントがあるか調べr
+		TcrLoginInfoBeans tcrLoginInfo = new TcrLoginInfoBeans();
+
+		try {
+			super.connect();
+			stmt = this.con.prepareStatement("SELECT * FROM teacher WHERE teacher_code = ? AND teacher_password = ?");
+			stmt.setString(1, userId);
+			stmt.setString(2, password);
+			rs = this.stmt.executeQuery();
+
+			rs.next();
+			tcrLoginInfo.setUserId(this.rs.getString("teacher_code"));
+			tcrLoginInfo.setUserName(this.rs.getString("teacher_name"));
+			super.close();
+
+		}catch(SQLException e) {
+
+			tcrLoginInfo = null;
+		}catch(Exception e) {
 			e.printStackTrace();
+		}
+		return tcrLoginInfo;
+	}
+
+	// ユーザーIDからソルトを取得する
+	public byte[] getTcrSalt(String userId) {
+
+		byte[] salt;
+		try {
+			super.connect();
+			stmt = this.con.prepareStatement("SELECT salt FROM teacher WHERE teacher_code = ?;");
+			stmt.setString(1, userId);
+			rs = this.stmt.executeQuery();
+			rs.next();
+			salt = this.rs.getBytes("salt");
+
+		}catch(SQLException e) {
+			salt = null;
 		}
 		return salt;
 	}
