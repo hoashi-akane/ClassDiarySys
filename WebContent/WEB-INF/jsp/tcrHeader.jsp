@@ -11,7 +11,7 @@
 
 <body>
 <%
-	String headname =((LoginInfoBeans)session.getAttribute("loginInfo")).getUserName();
+	String headname =((TcrLoginInfoBeans)session.getAttribute("tcrLoginInfo")).getUserName();
 	if(headname == null){
 		headname = "ゲスト";
 	}

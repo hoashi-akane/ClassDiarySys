@@ -13,11 +13,12 @@
 <%@include file="../../css/nowuicss/now-ui-kit.css"%>
 </style>
 <body>
-<% TcrLoginInfoBeans tcrLoginInfo = (TcrLoginInfoBeans)session.getAttribute("loginInfo");
+<%
+	TcrLoginInfoBeans tcrLoginInfo = (TcrLoginInfoBeans)session.getAttribute("tcrLoginInfo");
 	String name = tcrLoginInfo.getUserName();
 %>
 <header>
-	<%@include file="/WEB-INF/jsp/header.jsp" %>
+	<%@include file="/WEB-INF/jsp/tcrHeader.jsp" %>
 </header>
 <div class="container">
 	<div class="row mt-5">
@@ -40,8 +41,8 @@
 	</div>
 </div>
 
-	<footer>
-		<%@include file="/WEB-INF/jsp/footer.jsp" %>
-	</footer>
+<footer>
+	<%@include file="/WEB-INF/jsp/footer.jsp" %>
+</footer>
 </body>
 </html>
