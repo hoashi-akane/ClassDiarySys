@@ -1,8 +1,11 @@
 package dao;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import beans.LoginInfoBeans;
+import beans.TcrClassInfoBeans;
 import beans.TcrLoginInfoBeans;
 
 public class UserDao extends DaoBase{
@@ -71,7 +74,6 @@ public class UserDao extends DaoBase{
 			super.close();
 
 		}catch(SQLException e) {
-
 			tcrLoginInfo = null;
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -95,5 +97,31 @@ public class UserDao extends DaoBase{
 			salt = null;
 		}
 		return salt;
+	}
+
+	//　教員クラス判別
+	public List<TcrClassInfoBeans> getTcrClass(String userId) {
+
+		List<TcrClassInfoBeans> tcrClassList = new ArrayList<TcrClassInfoBeans>();
+
+		try {
+			super.connect();
+			stmt = this.con.prepareStatement("SELECT class.class_code, class.class_name, course.course_name, class.grade FROM (class LEFT OUTER JOIN teacher ON class.teacher_code = teacher.teacher_code) left outer join course on class.course_code = course.course_code WHERE teacher.teacher_code = ? ORDER BY course.course_code ASC,class.grade DESC,class.class_code ASC");
+			stmt.setString(1, userId);
+			rs = this.stmt.executeQuery();
+			while(rs.next()) {
+				TcrClassInfoBeans tcrClass = new TcrClassInfoBeans();
+				tcrClass.setClassCode(this.rs.getString("class_code"));
+				tcrClass.setClassName(this.rs.getString("class_name"));
+				tcrClass.setCourseName(this.rs.getString("course_name"));
+				tcrClass.setGrade(this.rs.getString("grade"));
+
+				tcrClassList.add(tcrClass);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+			tcrClassList = null;
+		}
+		return tcrClassList;
 	}
 }
