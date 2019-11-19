@@ -18,7 +18,7 @@
 %>
 <div class="container">
 	<div class="row mt-3">
-		<div class="col-md-10 offset-md-1"><p class="text-left float-left"><%= headname%></p><a href="LogoutServlet" class="text text-primary float-right">ログアウト</a></div>
+		<div class="col-md-10 offset-md-1"><p class="text-left float-left"><%= headname%> 先生</p><a href="LogoutServlet" class="text text-primary float-right">ログアウト</a></div>
 	</div>
 </div>
 <div class="container-fluid border-bottom border-primary"></div>

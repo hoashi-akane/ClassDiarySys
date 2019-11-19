@@ -44,7 +44,7 @@
 		  	</div>
 		  	<div class="col-md-12 p-0">
 				<a href="MenuServlet" class="m-0 col-md-6  btn btn-lg btn-neutral border border-danger text-center float-left">戻る</a>
-				<button type="button" class="mx-0 col-md-6 btn btn-lg btn-neutral border border-danger text-center float-right" data-toggle="modal" data-target="#myModal">登録</button>
+				<button type="button" class="m-0 col-md-6 btn btn-lg btn-neutral border border-danger text-center float-right" data-toggle="modal" data-target="#myModal">登録</button>
 			</div>
 			<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 				<div class="modal-dialog" role="document">
