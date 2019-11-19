@@ -234,5 +234,4 @@ public class DiaryDao extends DaoBase{
 		}
 		return isSuccess;
 	}
-
 }
