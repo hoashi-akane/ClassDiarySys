@@ -28,9 +28,9 @@ List<TcrClassInfoBeans> tcrClassList = (ArrayList<TcrClassInfoBeans>)request.get
 <div class="container">
 	<div class="row mt-5">
 		<h2 class="col-md-10 mb-4 text text-secondary">クラス名を選択してください</h2>
-			<form action="DispDiaryClass" method="POST" class="col-md-8 offset-md-2 mx-auto text text-secondary">
+			<form action="DispClassDiaryServlet" method="POST" class="col-md-8 offset-md-2 mx-auto text text-secondary">
 				<%for(TcrClassInfoBeans tcrClass : tcrClassList){ %>
-				<button type="submit" class="card" name="className" value="<%= tcrClass.getClassCode()%>">
+				<button type="submit" class="card" name="classCode" value="<%= tcrClass.getClassCode()%>">
 					<div class="card-body">
 						<p>学科・学年・クラス：<%=tcrClass.getCourseName() %> <%=tcrClass.getGrade() %><%=tcrClass.getClassName() %></p>
 					</div>

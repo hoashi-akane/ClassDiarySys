@@ -40,7 +40,6 @@ public class TcrDispDiaryListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		HttpSession session = request.getSession();
-		List<DiaryListBeans> diaryList = new ArrayList<DiaryListBeans>();
 		String path ="";
 		//userIdから一覧を呼び出す
 		String userId = ((TcrLoginInfoBeans)session.getAttribute("tcrLoginInfo")).getUserId();
@@ -58,6 +57,7 @@ public class TcrDispDiaryListServlet extends HttpServlet {
 			break;
 	//　1クラスのみ
 		case onlyOneClassDiary:
+			List<DiaryListBeans> diaryList = new ArrayList<DiaryListBeans>();
 			diaryList = diaryDao.getDiaryList((tcrClassList.get(0)).getClassCode());
 			path = "WEB-INF/jsp/tcrDispDiaryList.jsp";
 			request.setAttribute("diaryList", diaryList);
