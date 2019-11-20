@@ -48,7 +48,7 @@ public class DiaryDao extends DaoBase{
 
 		try {
 			super.connect();
-			stmt = this.con.prepareStatement("SELECT insert_date FROM diary WHERE insert_date BETWEEN CURDATE() -30 AND CURDATE() + 0 AND class_code = ? ORDER BY insert_date");
+			stmt = this.con.prepareStatement("SELECT insert_date FROM diary WHERE insert_date BETWEEN DATE_SUB(CURRENT_DATE(), interval 30 DAY) AND CURDATE() + 0 AND class_code = ? ORDER BY insert_date");
 			this.stmt.setString(1, classCode);
 			rs = this.stmt.executeQuery();
 			while(rs.next()) {

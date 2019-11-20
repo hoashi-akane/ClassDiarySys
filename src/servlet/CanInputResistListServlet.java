@@ -64,6 +64,7 @@ public class CanInputResistListServlet extends HttpServlet {
 			String day = sdf.format(cal.getTime()).toString();
 
 			if(diaryDateList != null && diaryDateList.size() > 0) {
+
 				if(day.equals(diaryDateList.get(0))){
 
 					diaryDateList.remove(0);

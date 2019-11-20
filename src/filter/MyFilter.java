@@ -43,8 +43,10 @@ public class MyFilter implements Filter {
 
 
 		String name = ((HttpServletRequest)request).getServletPath();
+		StringBuffer sb = ((HttpServletRequest)request).getRequestURL();
+
 // ログイン前
-		if( name.equals("/LoginServlet") || name.equals("/AuthServlet") || name.equals("/TcrLoginServlet") || name.equals("/TcrAuthServlet")) {
+		if( sb.toString().contains(".PNG") || sb.toString().contains(".png") || name.equals("/IntroductionServlet") || name.equals("/LoginServlet") || name.equals("/AuthServlet") || name.equals("/TcrLoginServlet") || name.equals("/TcrAuthServlet")) {
 			chain.doFilter(request, response);
 // 本来ログイン後の画面にいる
 		}else {
