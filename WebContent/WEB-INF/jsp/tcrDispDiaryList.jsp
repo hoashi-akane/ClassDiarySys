@@ -23,6 +23,9 @@ List<DiaryListBeans> diaryList = (List<DiaryListBeans>)request.getAttribute("dia
 int i = 0;
 %>
 
+<header>
+	<%@include file="/WEB-INF/jsp/tcrHeader.jsp" %>
+</header>
 <div class="container">
 	<div class="row mt-5">
 		<h2 class="col-md-10 mb-4 text text-secondary">日誌一覧</h2>
@@ -59,7 +62,7 @@ int i = 0;
 			<a href="TcrMenuServlet" class="col-md-12  btn btn-lg btn-neutral border border-danger text-center float-left">戻る</a>
 		</div>
 	</div>
-</div>"
+</div>
 
 </body>
 </html>

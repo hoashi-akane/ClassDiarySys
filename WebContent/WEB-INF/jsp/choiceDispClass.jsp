@@ -20,6 +20,7 @@
 <body>
 <%
 List<TcrClassInfoBeans> tcrClassList = (ArrayList<TcrClassInfoBeans>)request.getAttribute("tcrClassList");
+String actionPath = (String)request.getAttribute("actionPath");
 %>
 <header>
 	<%@include file="/WEB-INF/jsp/tcrHeader.jsp" %>
@@ -28,7 +29,7 @@ List<TcrClassInfoBeans> tcrClassList = (ArrayList<TcrClassInfoBeans>)request.get
 <div class="container">
 	<div class="row mt-5">
 		<h2 class="col-md-10 mb-4 text text-secondary">クラス名を選択してください</h2>
-			<form action="DispClassDiaryServlet" method="POST" class="col-md-8 offset-md-2 mx-auto text text-secondary">
+			<form action="<%= actionPath %>" method="POST" class="col-md-8 offset-md-2 mx-auto text text-secondary">
 				<%for(TcrClassInfoBeans tcrClass : tcrClassList){ %>
 				<button type="submit" class="card" name="classCode" value="<%= tcrClass.getClassCode()%>">
 					<div class="card-body">

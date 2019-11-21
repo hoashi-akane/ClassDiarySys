@@ -234,4 +234,29 @@ public class DiaryDao extends DaoBase{
 		}
 		return isSuccess;
 	}
+
+	//教員用日誌削除
+	public boolean tcrDelDiary(String[] delDays, String classCode) {
+
+		boolean isSuccess = false;
+		try {
+			super.connect();
+			for(String delDay : delDays) {
+				stmt = this.con.prepareStatement("DELETE FROM diary WHERE insert_date = ? AND class_code = ?;");
+				this.stmt.setString(1, delDay);
+				this.stmt.setString(2, classCode);
+				this.stmt.executeUpdate();
+			}
+			isSuccess = true;
+
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		try {
+			super.close();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return isSuccess;
+	}
 }
