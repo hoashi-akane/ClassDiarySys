@@ -61,7 +61,7 @@ int i = 0;
 			<a href="MenuServlet" class="col-md-12  btn btn-lg btn-neutral border border-danger text-center float-left">戻る</a>
 		</div>
 	</div>
-</div>"
+</div>
 
 </body>
 </html>
