@@ -31,8 +31,14 @@ public class LogoutServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 
 		HttpSession session = request.getSession();
+		String path = "";
+		if(session.getAttribute("loginInfo") == null) {
+			path ="TcrLoginServlet";
+		}else if(session.getAttribute("tcrLoginInfo") == null){
+			path="LoginServlet";
+		}
 		session.invalidate();
-		response.sendRedirect("LoginServlet");
+		response.sendRedirect(path);
 	}
 
 }
