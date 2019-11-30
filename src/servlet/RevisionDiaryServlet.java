@@ -60,6 +60,7 @@ public class RevisionDiaryServlet extends HttpServlet {
 
 		DiaryDao diaryDao = new DiaryDao();
 
+		// 修正を行う日誌の値をリスト、ビーンズに格納
 		for(String check : checks) {
 			DiaryListBeans diary = new DiaryListBeans();
 

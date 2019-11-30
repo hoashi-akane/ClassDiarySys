@@ -16,10 +16,10 @@ import dao.DiaryDao;
 import dao.UserDao;
 
 /**
- * Servlet implementation class TcrDelDiaryServlet
+ * Servlet implementation class TcrInsertCommentServlet
  */
-@WebServlet("/TcrDelDiaryServlet")
-public class TcrDelDiaryServlet extends HttpServlet {
+@WebServlet("/TcrInsertCommentServlet")
+public class TcrInsertCommentServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final int youClassNotFound = 0;
 	private static final int onlyOneClassDiary = 1;
@@ -27,7 +27,7 @@ public class TcrDelDiaryServlet extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public TcrDelDiaryServlet() {
+    public TcrInsertCommentServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,7 +35,6 @@ public class TcrDelDiaryServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-    // 教員メニューから日誌削除を押した用サーブレット
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		HttpSession session = request.getSession();
@@ -57,12 +56,12 @@ public class TcrDelDiaryServlet extends HttpServlet {
 	//　1クラスのみ
 		case onlyOneClassDiary:
 			request.setAttribute("classCode",tcrClassList.get(0).getClassCode());
-			response.sendRedirect("TcrDelClassDiaryServlet");
+			response.sendRedirect("TcrInsertCommentDiaryServlet");
 			break;
 	//　2クラス以上の担任である場合、クラス選択画面へ
 		default:
 			// ディスパッチャー先のjspのform(action=?)を指定
-			String jspActionPath = "TcrDelClassDiaryServlet";
+			String jspActionPath = "TcrInsertCommentDiaryServlet";
 			request.setAttribute("tcrClassList", tcrClassList);
 			request.setAttribute("actionPath", jspActionPath);
 			path = "WEB-INF/jsp/choiceDispClass.jsp";
@@ -74,22 +73,15 @@ public class TcrDelDiaryServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	//選択された日誌を削除する
+	//担任コメント登録サーブ
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+
 		HttpSession session = request.getSession();
-		String[] check = request.getParameterValues("chk");
+		String[] chk = request.getParameterValues("chk");
+
 		String classCode = (String)session.getAttribute("classCode");
-		session.removeAttribute("classCode");
-		DiaryDao diaryDao = new DiaryDao();
 
-		if(diaryDao.tcrDelDiary(check, classCode)) {
-			String[] message = {"削除","削除が完了しました。"};
-			request.setAttribute("message", message);
-			request.getRequestDispatcher("WEB-INF/jsp/completeTcrDiaryResist.jsp").forward(request, response);
-		}else {
-
-		}
+		List<classDiaryBeans>
 	}
 
 }

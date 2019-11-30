@@ -110,5 +110,8 @@ int i = 0;
 		</div>
 	</div>
 </div>
+<footer>
+		<%@include file="/WEB-INF/jsp/footer.jsp" %>
+	</footer>
 </body>
 </html>

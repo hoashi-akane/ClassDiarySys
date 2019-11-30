@@ -28,7 +28,7 @@
 			<table class="float-right" style="width:100%;">
 				<tr><td><form action="TcrDispDiaryListServlet" method="GET"><button type="submit" class="btn btn-neutral border border-danger" style="width:100%">日誌一覧表示</button></form></td>
 				</tr>
-				<tr><td><form action="InputDiaryResistServlet" method="GET"><button type="submit" class="btn btn-neutral border border-danger" style="width:100%">日誌作成</button></form></td></tr>
+				<tr><td><form action="TcrInsertCommentServlet" method="GET"><button type="submit" class="btn btn-neutral border border-danger" style="width:100%">担任コメント入力</button></form></td></tr>
 			</table>
 		</div>
 		<div class="col-md-3 offset-md-1">

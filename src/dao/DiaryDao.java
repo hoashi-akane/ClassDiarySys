@@ -259,4 +259,35 @@ public class DiaryDao extends DaoBase{
 		}
 		return isSuccess;
 	}
+
+	//教員用コメント記入処理
+	public List<DiaryListBeans> getNotCommentDiaryList(String classCode){
+
+		List<DiaryListBeans> diaryList = new ArrayList<DiaryListBeans>();
+		try {
+			super.connect();
+			stmt = this.con.prepareStatement("SELECT * FROM diary WHERE class_code = ? AND teacher_comment ='';");
+			this.stmt.setString(1, classCode);
+			rs = this.stmt.executeQuery();
+
+			while(rs.next()) {
+				DiaryListBeans diary = new DiaryListBeans();
+				diary.setInsertDate(this.rs.getString("insert_date"));
+				diary.setGoodPoint(this.rs.getString("good_point"));
+				diary.setBadPoint(this.rs.getString("bad_point"));
+				diary.setStdCom(this.rs.getString("student_comment"));
+				diary.setTcrCom(this.rs.getString("teacher_comment"));
+				diary.setUserName(this.rs.getString("student_name"));
+				diaryList.add(diary);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		try {
+			super.close();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return diaryList;
+	}
 }

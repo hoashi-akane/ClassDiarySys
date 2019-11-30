@@ -27,7 +27,7 @@ $(function(){
 	          $("#revbtn").prop("disabled", false);
 	        } else {
 	          // ボタン無効
-	          $("#revtbtn").prop("disabled", true);
+	          $("#revbtn").prop("disabled", true);
 	        }
 	    });
 });
