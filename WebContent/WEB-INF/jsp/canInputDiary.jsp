@@ -53,8 +53,8 @@ $(function(){
 						<h5 class="text-danger">
 						<button type="button" class="btn btn-link" data-toggle="collapse" data-target="#collapse<%=i %>" aria-expanded="false" aria-controls="collapse<%=i %>">
 							本来の記入日：<%= diary %>　　　作成
-							<input type="checkbox" class="chk" name="chk" value=<%= i %>>
-							<input type="hidden" name="hid<%=i%>" value=<%= diary %>>
+							<input type="checkbox" class="chk" name="chk" value="<%= i %>">
+							<input type="hidden" name="hid<%=i%>" value="<%= diary%>">
 						</button>
 						</h5>
 					</div>
@@ -106,8 +106,10 @@ $(function(){
 			</div>
 			</div>
 	</div>
-</div>"
-
+</div>
+<footer>
+	<%@include file="/WEB-INF/jsp/footer.jsp" %>
+</footer>
 
 </body>
 </html>

@@ -50,7 +50,7 @@ int i = 0;
 								</thead>
 								<tbody>
 									<tr>
-										<td><%= diary.getGoodPoint() %></td><td><%= diary.getBadPoint() %></td><td><%= diary.getStdCom() %></td><td><%= diary.getTcrCom() %>
+										<td><%= diary.getGoodPoint() %></td><td><%= diary.getBadPoint() %></td><td><%= diary.getStdCom() %></td><td><%= diary.getTcrCom() %></td>
 								</tbody>
 							</table>
 						</div>
