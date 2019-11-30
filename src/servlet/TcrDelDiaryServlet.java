@@ -61,6 +61,7 @@ public class TcrDelDiaryServlet extends HttpServlet {
 			break;
 	//　2クラス以上の担任である場合、クラス選択画面へ
 		default:
+			// ディスパッチャー先のjspのform(action=?)を指定
 			String jspActionPath = "TcrDelClassDiaryServlet";
 			request.setAttribute("tcrClassList", tcrClassList);
 			request.setAttribute("actionPath", jspActionPath);
@@ -73,6 +74,7 @@ public class TcrDelDiaryServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
+	//選択された日誌を削除する
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		HttpSession session = request.getSession();

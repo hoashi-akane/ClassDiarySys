@@ -27,7 +27,7 @@ $(function(){
 	          $("#delbtn").prop("disabled", false);
 	        } else {
 	          // ボタン無効
-	          $("#deltbtn").prop("disabled", true);
+	          $("#delbtn").prop("disabled", true);
 	        }
 	    });
 });
