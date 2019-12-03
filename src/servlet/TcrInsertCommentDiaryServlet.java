@@ -40,7 +40,8 @@ public class TcrInsertCommentDiaryServlet extends HttpServlet {
 		DiaryDao diaryDao = new DiaryDao();
 		List<DiaryListBeans> diaryList = new ArrayList<DiaryListBeans>();
 
-		diaryList = diaryDao.getDiaryList(classCode);
+		diaryList = diaryDao.getNotCommentDiaryList(classCode);
+
 		if(diaryList != null) {
 			session.setAttribute("classCode", classCode);
 			request.setAttribute("diaryList", diaryList);

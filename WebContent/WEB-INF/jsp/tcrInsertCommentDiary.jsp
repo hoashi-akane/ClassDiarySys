@@ -73,8 +73,8 @@ int i = 0;
 								<div id="stdCom<%=i%>"><%=diary.getStdCom() %></div>
 							</div>
 							<div class="form-group">
-								<label for="tcrCom<%=i%>">担任コメント</label>
-								<textarea  id="tcrCom<%=i%>" class="form-control" name="tcr_com<%=i%>" maxlength="30" rows="2"></textarea>
+								<label for="tcr_com<%=i%>">担任コメント</label>
+								<textarea  id="tcr_com<%=i%>" class="form-control" name="tcrCom<%=i%>" maxlength="30" rows="2"></textarea>
 							</div>
 						</div>
 					</div>
@@ -83,7 +83,7 @@ int i = 0;
 
 			<div class="col-md-12 p-0">
 			<a href="TcrMenuServlet" class="m-0 col-md-6 btn btn-lg btn-neutral border border-danger text-center">戻る</a>
-			<button class="float-right m-0 col-md-6 btn btn-neutral btn-lg border border-danger" type="button" id="istbtn"  data-toggle="modal" data-target="#myModal">削除</button>
+			<button class="float-right m-0 col-md-6 btn btn-neutral btn-lg border border-danger" type="button" id="istbtn"  data-toggle="modal" data-target="#myModal">登録</button>
 			</div>
 			<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 				<div class="modal-dialog" role="document">
@@ -96,11 +96,11 @@ int i = 0;
       				</div>
       				<div class="modal-body">
       					<p class="text-danger text-center">コメント登録する日誌には必ずチェックを付けてください。</p>
-						<p class="text-center">チェックされた日付の日誌を削除します。<br>間違いありませんか？</p>
+						<p class="text-center">チェックされた日付の日誌を登録します。<br>間違いありませんか？</p>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary px-4" data-dismiss="modal">戻る</button>
-						<button type="submit" class="btn btn-primary float-right px-4">削除</button>
+						<button type="submit" class="btn btn-primary float-right px-4">登録</button>
 					</div><!-- /.modal-footer -->
 					</div><!-- /.modal-content -->
 				</div><!-- /.modal-dialog -->

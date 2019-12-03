@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import beans.TcrClassInfoBeans;
+import beans.TcrCommentBeans;
 import beans.TcrLoginInfoBeans;
 import dao.DiaryDao;
 import dao.UserDao;
@@ -77,11 +79,29 @@ public class TcrInsertCommentServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		HttpSession session = request.getSession();
+		//チェックボックス.chkパラーメータ受け取り
 		String[] chk = request.getParameterValues("chk");
 
+		DiaryDao diaryDao = new DiaryDao();
 		String classCode = (String)session.getAttribute("classCode");
 
-		List<classDiaryBeans>
+		List<TcrCommentBeans> tcrCommentList = new ArrayList<TcrCommentBeans>();
+
+		// 担任コメントを記入する日誌、クラスコード、日付をリストbeansに入れる
+		for(String idx : chk) {
+			TcrCommentBeans tcrCommentBeans = new TcrCommentBeans();
+			tcrCommentBeans.setClassCode(classCode);
+			tcrCommentBeans.setInsertDate(request.getParameter("hid"+idx));
+			tcrCommentBeans.setTcrCom(request.getParameter("tcrCom"+idx));
+			tcrCommentList.add(tcrCommentBeans);
+		}
+
+		if(diaryDao.insertTcrComment(tcrCommentList)) {
+			String[] message = {"コメント登録","担任コメント登録完了しました。"};
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("WEB-INF/jsp/completeTcrDiaryResist.jsp").forward(request, response);
+		}
+
 	}
 
 }
