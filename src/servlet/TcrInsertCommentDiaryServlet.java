@@ -29,6 +29,23 @@ public class TcrInsertCommentDiaryServlet extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
+
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		HttpSession session = request.getSession();
+    	String classCode = (String)session.getAttribute("classCode");
+		DiaryDao diaryDao = new DiaryDao();
+		List<DiaryListBeans> diaryList = new ArrayList<DiaryListBeans>();
+
+		diaryList = diaryDao.getNotCommentDiaryList(classCode);
+
+		if(diaryList != null) {
+			request.setAttribute("diaryList", diaryList);
+			request.getRequestDispatcher("WEB-INF/jsp/tcrInsertCommentDiary.jsp").forward(request, response);
+		}
+	}
+
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */

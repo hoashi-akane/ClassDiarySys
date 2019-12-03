@@ -57,7 +57,7 @@ public class TcrDispDiaryListServlet extends HttpServlet {
 			break;
 	//　1クラスのみ
 		case onlyOneClassDiary:
-			request.setAttribute("classCode",tcrClassList.get(0).getClassCode());
+			session.setAttribute("classCode", tcrClassList.get(0).getClassCode());
 			response.sendRedirect("DispClassDiaryServlet");
 			break;
 	//　2クラス以上の担任である場合、クラス選択画面へ
