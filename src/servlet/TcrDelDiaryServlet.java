@@ -53,10 +53,11 @@ public class TcrDelDiaryServlet extends HttpServlet {
 	//　未所属
 		case youClassNotFound:
 			path = "WEB-INF/jsp/youClassNotFound.jsp";
+			request.getRequestDispatcher(path).forward(request, response);
 			break;
 	//　1クラスのみ
 		case onlyOneClassDiary:
-			request.setAttribute("classCode",tcrClassList.get(0).getClassCode());
+			session.setAttribute("classCode",tcrClassList.get(0).getClassCode());
 			response.sendRedirect("TcrDelClassDiaryServlet");
 			break;
 	//　2クラス以上の担任である場合、クラス選択画面へ
@@ -66,9 +67,9 @@ public class TcrDelDiaryServlet extends HttpServlet {
 			request.setAttribute("tcrClassList", tcrClassList);
 			request.setAttribute("actionPath", jspActionPath);
 			path = "WEB-INF/jsp/choiceDispClass.jsp";
+			request.getRequestDispatcher(path).forward(request, response);
 		}
 
-		request.getRequestDispatcher(path).forward(request, response);
 	}
 
 	/**

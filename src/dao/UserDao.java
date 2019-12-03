@@ -16,6 +16,7 @@ public class UserDao extends DaoBase{
 		//アカウントがあるかを調べる（ログイン処理）
 		LoginInfoBeans loginInfo = new LoginInfoBeans();
 		try {
+			// ユーザ情報、クラスコード取得
 			super.connect();
 			stmt = this.con.prepareStatement("SELECT * FROM student WHERE student_id = ? AND student_password = ?;");
 			stmt.setString(1, userId);
@@ -26,6 +27,16 @@ public class UserDao extends DaoBase{
 			loginInfo.setUserId(this.rs.getString("student_id"));
 			loginInfo.setUserName(this.rs.getString("student_name"));
 			loginInfo.setClassCode(this.rs.getString("class_code"));
+
+			// クラス名とコース情報を取得
+			stmt = this.con.prepareStatement("SELECT class.class_name,course.course_code, course.course_name FROM class inner join course ON class.course_code = course.course_code WHERE class.class_code = ?");
+			stmt.setString(1, loginInfo.getClassCode());
+			rs = this.stmt.executeQuery();
+			rs.next();
+
+			loginInfo.setClassName(this.rs.getString("class_name"));
+			loginInfo.setCourseCode(this.rs.getString("course_code"));
+			loginInfo.setCourseName(this.rs.getString("course_name"));
 
 			super.close();
 

@@ -6,10 +6,15 @@ import java.util.List;
 
 import beans.DiaryBeans;
 import beans.DiaryListBeans;
+import beans.TcrCommentBeans;
 
 public class DiaryDao extends DaoBase{
 
-//	クラスの日誌一覧を取得
+	/**
+	 * クラスの日誌一覧を取得
+	 * @param classCode 所属しているクラス
+	 * @return
+	 */
 	public List<DiaryListBeans> getDiaryList(String classCode){
 //		格納用
 		List<DiaryListBeans> diaryList = new ArrayList<DiaryListBeans>();
@@ -41,7 +46,12 @@ public class DiaryDao extends DaoBase{
 		}
 		return diaryList;
 	}
-	//　クラス日誌に登録されている日付のみ取得
+
+	/**
+	 * クラス日誌に登録されている日付のみ取得
+	 * @param classCode 自身の所属しているクラス
+	 * @return
+	 */
 	public List<String> getDiaryDateList(String classCode){
 
 		List<String> diaryDateList = new ArrayList<String>();
@@ -67,7 +77,12 @@ public class DiaryDao extends DaoBase{
 	}
 
 
-	//	既に登録されているか調べる
+	/**
+	 * 既に登録されているか調べる
+	 * @param className 登録したいクラス名
+	 * @param day 日誌の日付
+	 * @return
+	 */
 	public boolean insertDiaryChecker(String className, String day) {
 
 		boolean isSuccess = false;
@@ -92,7 +107,11 @@ public class DiaryDao extends DaoBase{
 		return isSuccess;
 	}
 
-	//　日誌の登録を行う
+	/**
+	 * 日誌の登録を行う
+	 * @param diary 登録したい日誌の内容
+	 * @return
+	 */
 	public boolean insertDiaryRegist(DiaryBeans diary){
 
 		boolean isSuccess = false;
@@ -121,7 +140,11 @@ public class DiaryDao extends DaoBase{
 		return isSuccess;
 	}
 
-	//　複数の日誌を登録する
+	/**
+	 * 複数の日誌を登録する
+	 * @param multiDiary 登録したい複数の日誌の内容
+	 * @return
+	 */
 	public boolean multiInsertDiaryResist(List<DiaryBeans> multiDiary) {
 
 		boolean isSuccess = false;
@@ -151,7 +174,11 @@ public class DiaryDao extends DaoBase{
 		return isSuccess;
 	}
 
-	// 利用者が作成した日誌を取得
+	/**
+	 * 利用者が作成した日誌を取得
+	 * @param userId ユーザID
+	 * @return
+	 */
 	public List<DiaryListBeans> getDelDiaryList(String userId){
 
 		List<DiaryListBeans> diaryList = new ArrayList<DiaryListBeans>();
@@ -182,7 +209,12 @@ public class DiaryDao extends DaoBase{
 		return diaryList;
 	}
 
-	//　利用者が作成した日誌を削除
+	/**
+	 * 利用者が作成した日誌を削除
+	 * @param delDays 削除したい日誌一覧
+	 * @param userId ユーザーID
+	 * @return
+	 */
 	public boolean delDiary(String[] delDays, String userId) {
 
 		boolean isSuccess = false;
@@ -207,7 +239,12 @@ public class DiaryDao extends DaoBase{
 		return isSuccess;
 	}
 
-	//　利用者が作成した日誌を修正
+	/**
+	 * 利用者が作成した日誌を修正
+	 * @param diaryList 日誌一覧
+	 * @param userId ユーザーid
+	 * @return
+	 */
 	public boolean revisionDiary(List<DiaryListBeans> diaryList, String userId) {
 
 		boolean isSuccess = false;
@@ -235,7 +272,12 @@ public class DiaryDao extends DaoBase{
 		return isSuccess;
 	}
 
-	//教員用日誌削除
+	/**
+	 * 教員用日誌削除
+	 * @param delDays 削除する日付の一覧
+	 * @param classCode クラスコード
+	 * @return
+	 */
 	public boolean tcrDelDiary(String[] delDays, String classCode) {
 
 		boolean isSuccess = false;
@@ -260,13 +302,18 @@ public class DiaryDao extends DaoBase{
 		return isSuccess;
 	}
 
-	//教員用コメント記入処理
+
+	/**
+	 * 教員用コメント記入可能な日誌一覧処理
+	 * @param classCode クラスコード
+	 * @return
+	 */
 	public List<DiaryListBeans> getNotCommentDiaryList(String classCode){
 
 		List<DiaryListBeans> diaryList = new ArrayList<DiaryListBeans>();
 		try {
 			super.connect();
-			stmt = this.con.prepareStatement("SELECT * FROM diary WHERE class_code = ? AND teacher_comment ='';");
+			stmt = this.con.prepareStatement("SELECT d.insert_date, d.good_point, d.bad_point,d.student_comment, d.teacher_comment, s.student_name FROM diary AS d INNER JOIN student AS s ON d.student_id = s.student_id WHERE d.class_code = ? AND d.teacher_comment = '' ORDER BY d.insert_date;");
 			this.stmt.setString(1, classCode);
 			rs = this.stmt.executeQuery();
 
@@ -289,5 +336,35 @@ public class DiaryDao extends DaoBase{
 			e.printStackTrace();
 		}
 		return diaryList;
+	}
+
+	/**
+	 * 教員コメント登録
+	 * @param tcrCommentList 担任コメントを登録するためのbeans
+	 * @return
+	 */
+	public boolean insertTcrComment(List<TcrCommentBeans> tcrCommentList) {
+
+		boolean isSuccess = false;
+		try {
+			super.connect();
+			for(TcrCommentBeans tcrComment : tcrCommentList) {
+				stmt = this.con.prepareStatement("UPDATE diary SET teacher_comment = ? WHERE class_code = ? AND insert_date = ?");
+				this.stmt.setString(1, tcrComment.getTcrCom());
+				this.stmt.setString(2, tcrComment.getClassCode());
+				this.stmt.setString(3, tcrComment.getInsertDate());
+				this.stmt.executeUpdate();
+			}
+			isSuccess = true;
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		try {
+			super.close();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return isSuccess;
+
 	}
 }

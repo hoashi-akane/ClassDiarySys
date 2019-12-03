@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>クラス選択</title>
 </head>
 <style>
 <%@include file="../../css/nowuicss/bootstrap.min.css"%>

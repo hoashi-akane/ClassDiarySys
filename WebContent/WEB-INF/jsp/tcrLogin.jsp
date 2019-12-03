@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>ログイン</title>
+<title>教員ログイン</title>
 </head>
 <style>
 <%@include file="../../css/nowuicss/bootstrap.min.css"%>

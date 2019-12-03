@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>日誌登録</title>
 </head>
 <style>
 <%@include file="../../css/nowuicss/bootstrap.min.css"%>
@@ -17,6 +17,9 @@
 </script>
 <body>
 <% String day = (String)request.getAttribute("day"); %>
+<header>
+	<%@include file="/WEB-INF/jsp/header.jsp" %>
+</header>
 <div class="container">
 	<div class="row mt-5">
 		<h2 class="col-md-10 mb-4 text text-secondary" id="inputDiary">日誌登録</h2>
