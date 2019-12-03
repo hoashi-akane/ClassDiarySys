@@ -13,16 +13,14 @@
 <%@include file="../../css/nowuicss/now-ui-kit.css"%>
 </style>
 <body>
-<% LoginInfoBeans loginInfo = (LoginInfoBeans)session.getAttribute("loginInfo");
-	String name = loginInfo.getUserName();
-%>
+
 <header>
 	<%@include file="/WEB-INF/jsp/header.jsp" %>
 </header>
 <div class="container">
 	<div class="row mt-5">
 		<h2 class="col-md-10 mb-4 text text-secondary">トップ画面</h2>
-		<h3 class="col-md-8 offset-md-2 mx-auto text text-secondary">ようこそ<%=name %>さん</h3>
+		<h3 class="col-md-8 offset-md-2 mx-auto text text-secondary">ようこそ<%=loginInfo.getUserName() %>さん</h3>
 		<div class="col-md-3 offset-md-2">
 			<table class="float-right" style="width:100%;">
 				<tr><td><form action="DispDiaryListServlet" method="GET"><button type="submit" class="btn btn-neutral border border-danger" style="width:100%">日誌一覧表示</button></form></td>

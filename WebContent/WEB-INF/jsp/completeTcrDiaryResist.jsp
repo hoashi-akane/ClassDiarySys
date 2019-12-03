@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>作業完了画面</title>
 </head>
 <style>
 <%@include file="../../css/nowuicss/bootstrap.min.css"%>
