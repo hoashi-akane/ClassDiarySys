@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import = "beans.DiaryListBeans" %>
 <%@page import = "java.util.*" %>
 <!DOCTYPE html>
@@ -47,20 +49,20 @@ int i = 0;
 		<div class="col-md-8 offset-md-2">
 		<div id="accordion">
 			<form action="DelDiaryServlet" method="POST">
-			<% for(DiaryListBeans diary: diaryList ){%>
+			<c:forEach var="diary" items="${diaryList }">
 				<div class="card">
 					<div class="card-header" id="heading<%=i%>">
 						<h5>
 							<button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse<%=i %>" aria-expanded="false" aria-controls="collapse<%=i %>">
-								作成日：<%= diary.getInsertDate() %>  　　作成者：<%= diary.getUserName() %>
-							<input class="chk" type="checkbox" name="chk" value="<%= diary.getInsertDate() %>">
+								作成日：<c:out value= "${diary.getInsertDate()}" />  　　作成者：<c:out value="${ diary.getUserName()}"/>
+							<input class="chk" type="checkbox" name="chk" value="${diary.insertDate}">
 							</button>
 						</h5>
 					</div>
 					<div id="collapse<%=i %>" class="collapse" aria-labelledby="heading<%=i %>" data-parent="#accordion">
 						<div class="card-body py-0">
 							<table class="table">
-								<thead>
+								<d>
 									<tr>
 										<th scope="col">良かった点</th>
 										<th scope="col">悪かった点</th>
@@ -70,16 +72,17 @@ int i = 0;
 								</thead>
 								<tbody>
 									<tr>
-										<td><%= diary.getGoodPoint() %></td>
-										<td><%= diary.getBadPoint() %></td>
-										<td><%= diary.getStdCom() %></td>
-										<td><%= diary.getTcrCom() %></td>
+										<td><c:out value="${diary.getGoodPoint()}"/></td>
+										<td><c:out value="${diary.getBadPoint()}"/></td>
+										<td><c:out value="${diary.getStdCom()}"/></td>
+										<td><c:out value="${diary.getTcrCom()}"/></td>
 								</tbody>
 							</table>
 						</div>
 					</div>
 				</div>
-				<% i++;} %>
+				<% i++; %>
+				</c:forEach>
 
 			<div class="col-md-12 p-0">
 			<a href="MenuServlet" class="m-0 col-md-6 btn btn-lg btn-neutral border border-danger text-center">戻る</a>

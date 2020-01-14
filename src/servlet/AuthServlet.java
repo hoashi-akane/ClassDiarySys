@@ -61,7 +61,7 @@ public class AuthServlet extends HttpServlet {
 		}else {
 			session.setAttribute("password", password);
 		}
-
+		
 //　ハッシュ処理 ----
 		char[] passCharArray = password.toCharArray();
 		byte[] salt = userDao.getSalt(userId);
@@ -93,6 +93,7 @@ public class AuthServlet extends HttpServlet {
 			}
 
 			String hashPass = sb.toString();
+			System.out.println(hashPass);
 	//　ハッシュ処理ここまで ----
 
 			// 認証

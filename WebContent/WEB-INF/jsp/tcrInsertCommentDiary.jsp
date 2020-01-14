@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import = "beans.DiaryListBeans" %>
 <%@page import = "java.util.*" %>
 <!DOCTYPE html>
@@ -47,14 +48,14 @@ int i = 0;
 		<div class="col-md-8 offset-md-2">
 		<div id="accordion">
 			<form action="TcrInsertCommentServlet" method="POST">
-			<% for(DiaryListBeans diary: diaryList ){%>
+			<c:forEach var="diary" items="${diaryList }">
 				<div class="card">
 					<div class="card-header" id="heading<%=i%>">
 						<h5>
 							<button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse<%=i %>" aria-expanded="false" aria-controls="collapse<%=i %>">
-								作成日：<%= diary.getInsertDate() %>  　　作成者：<%= diary.getUserName() %>
+								作成日：<c:out value="${diary.insertDate}"/>  　　作成者：<c:out value="${diary.userName}"/>
 							<input class="chk" type="checkbox" name="chk" value="<%=i%>">
-							<input type="hidden" name="hid<%=i%>" value="<%= diary.getInsertDate() %>">
+							<input type="hidden" name="hid<%=i%>" value="${ diary.insertDate}">
 							</button>
 						</h5>
 					</div>
@@ -62,15 +63,15 @@ int i = 0;
 						<div class="card-body py-0">
 							<div class="form-group border-bottom">
 								<label for="good<%=i%>">良かった点</label>
-								<div id="good<%=i%>" ><%=diary.getGoodPoint() %></div>
+								<div id="good<%=i%>" ><c:out value="${diary.getGoodPoint()}"/></div>
 							</div>
 							<div class="form-group border-bottom">
 								<label for="bad<%=i%>">悪かった点</label>
-								<div id="bad<%=i%>" ><%=diary.getBadPoint() %></div>
+								<div id="bad<%=i%>" ><c:out value="${diary.getBadPoint()}"/></div>
 							</div>
 							<div class="form-group border-bottom">
 								<label for="stdCom<%=i%>">一言</label>
-								<div id="stdCom<%=i%>"><%=diary.getStdCom() %></div>
+								<div id="stdCom<%=i%>"><c:out value="${diary.getStdCom()}"/></div>
 							</div>
 							<div class="form-group">
 								<label for="tcr_com<%=i%>">担任コメント</label>
@@ -79,8 +80,8 @@ int i = 0;
 						</div>
 					</div>
 				</div>
-				<% i++;} %>
-
+				<% i++; %>
+				</c:forEach>
 			<div class="col-md-12 p-0">
 			<a href="TcrMenuServlet" class="m-0 col-md-6 btn btn-lg btn-neutral border border-danger text-center">戻る</a>
 			<button class="float-right m-0 col-md-6 btn btn-neutral btn-lg border border-danger" type="button" id="istbtn"  data-toggle="modal" data-target="#myModal">登録</button>

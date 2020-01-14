@@ -50,7 +50,7 @@ public class MultiInputDiaryResistServlet extends HttpServlet {
 			diary.setBadPoint(request.getParameter("bad_com"+num));
 			diary.setInsertDate(request.getParameter("hid"+num));
 			diary.setStdCom(request.getParameter("std_com"+num));
-			diary.setTcr_Com("");
+			diary.setTcrCom("");
 			multiDiary.add(diary);
 		}
 

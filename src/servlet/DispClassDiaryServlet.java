@@ -13,7 +13,6 @@ import javax.servlet.http.HttpSession;
 
 import beans.DiaryListBeans;
 import dao.DiaryDao;
-import dao.UserDao;
 
 /**
  * Servlet implementation class DispClassDiaryServlet
@@ -35,7 +34,6 @@ public class DispClassDiaryServlet extends HttpServlet {
 		// TODO Auto-generated method stub
     	HttpSession session = request.getSession();
     	DiaryDao diaryDao = new DiaryDao();
-    	UserDao userDao = new UserDao();
 
     	// クラス一覧をセッションから取得
     	String classCode = (String)session.getAttribute("classCode");

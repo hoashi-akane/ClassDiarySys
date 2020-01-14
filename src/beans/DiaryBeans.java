@@ -51,7 +51,7 @@ public class DiaryBeans implements Serializable{
 	public String getTcrCom() {
 		return tcrCom;
 	}
-	public void setTcr_Com(String tcrCom) {
+	public void setTcrCom(String tcrCom) {
 		this.tcrCom = tcrCom;
 	}
 

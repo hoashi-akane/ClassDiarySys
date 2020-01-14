@@ -62,7 +62,7 @@ public class DiaryResistServlet extends HttpServlet {
 			diaryBeans.setGoodPoint(good);
 			diaryBeans.setBadPoint(bad);
 			diaryBeans.setStdCom(com);
-			diaryBeans.setTcr_Com("");
+			diaryBeans.setTcrCom("");
 
 			if(diaryDao.insertDiaryRegist(diaryBeans)) {
 				String[] message = {"登録","登録が完了しました！"};
